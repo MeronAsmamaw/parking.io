@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>parking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- script -->
+
+    <script>
+        function addCar() {
+             
+            const licensePlate = document.getElementById("license-plate").value;
+            const entryTime = new Date(document.getElementById("entry-time").value);
+            const exitTime = new Date(document.getElementById("exit-time").value);
+
+             
+            const duration = (exitTime - entryTime) / 1000 / 60 / 60;
+
+             
+            let charge = 0;
+            if (duration <= 2) {
+                charge = 5;
+            } else if (duration > 2 && duration <= 5) {
+                charge = 10;
+            } else if (duration > 5 && duration <= 10) {
+                charge = 15;
+            } else {
+                charge = 20;
+            }
+
+
+             
+            const table = document.getElementById("parking-table").getElementsByTagName("tbody")[0];
+            const row = table.insertRow();
+            const plateCell = row.insertCell(0);
+            const entryCell = row.insertCell(1);
+            const exitCell = row.insertCell(2);
+            const durationCell = row.insertCell(3);
+            const chargeCell = row.insertCell(4);
+            const actionCell = row.insertCell(5);
+
+            plateCell.innerHTML = licensePlate;
+            entryCell.innerHTML = entryTime.toLocaleString();
+            exitCell.innerHTML = exitTime.toLocaleString();
+            durationCell.innerHTML = duration.toFixed(2);
+            chargeCell.innerHTML = `$${charge.toFixed(2)}`;
+            actionCell.innerHTML = `<button type="button" onclick="removeCar(this)">Remove</button>`;
+
+        }
+
+        function removeCar(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 bg-dark">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4 text-white">Parking</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active text-white" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-white">license</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-white">PRICE</a></li>
+        </ul>
+    </header>
+
+    <div class="containe-fluid">
+        <div class="row">
+            <div class="col-4">
+                <form class="form-control">
+
+
+
+
+
+                    <div class="mb-3">
+                        <label for="names" class="form-label">License Plate Number:</label>
+                        <input type="text" class="form-control" id="license-plate">
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="entry-time" class="form-label">Entry Date and Time:</label>
+                        <input type="datetime-local" class="form-control" id="entry-time" name="entry-time">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="names" class="form-label">Exit Date and Time:</label>
+                        <input type="datetime-local" class="form-control" id="exit-time" name="exit-time">
+                    </div>
+
+                    <div>
+                    </div>
+                </form>
+
+
+
+                <br>
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-6">
+
+                            <button type="button" onclick="addCar()" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--  -->
+            <div class="col-8">
+                <table class="table" id="parking-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">License Plate Number</th>
+                            <th scope="col">Entry Date and Time</th>
+                            <th scope="col">Exit Date and Time</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Charge</th>
+                            <th scope="col">Actions</th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
